@@ -27,6 +27,11 @@ import urllib.parse
 from utils.wikipedia_parser import WikipediaArticleParser
 
 
+if not os.path.exists('output'):
+    print("[*] Create output/ directory.")
+    os.makedirs('output', exist_ok=True)
+
+
 def scraper(link: str):
     """
     Fetches and parses a Wikipedia article from the given URL, extracts metadata, content, and categories,
@@ -97,9 +102,6 @@ if __name__ == '__main__':
     print(f"[*] Drop Duplicate Link from Processing Links: {len(unique_links)}/{len(processed_links)}")
     scraping_unique_links = set(scraping_links) if scraping_links else set()
 
-    if not os.path.exists('output'):
-        print("[*] Create output/ directory.")
-        os.makedirs('output', exist_ok=True)
     for link in unique_links:
         if link in scraping_unique_links:
             print(f"[!] The link: {link} has already processed")
